@@ -42,27 +42,6 @@ public class BankController {
         return userAccount;
     }
 
-    @RequestMapping("/getGet")
-    protected void getUserUrl(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException
-    {
-        try
-        {
-            String userId = request.getParameter("userId");
-            userId = ESAPI.encoder().encodeForSQL(new MySQLCodec(MySQLCodec.Mode.STANDARD), userId);
-            DatabaseManager dbManager = new DatabaseManager();
-            Connection conn = dbManager.getConnection();
-            Statement st = conn.createStatement();
-            String query = "SELECT * FROM User WHERE userId='" + userId + "';";
-            ResultSet res = st.executeQuery(query);
-            String url = "https://" +userId+ ".company.com";
-            response.sendRedirect(url);
-        }
-        catch (Exception e)
-        {
-            Logger.getLogger(e.getMessage());
-        }
-    }
-
     private boolean isAuthorizedUser(String userName) {
         //for testing purposes
         return true;
